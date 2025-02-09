@@ -1,5 +1,4 @@
-# Namada Mainnet Update Script 
-from [v1.0.0]() to [v1.1.1]()
+# Namada Mainnet Update Script from [v1.0.0]() to [v1.1.1]()
 
 ## Description
 **Expected update block height: [880000](https://namada.valopers.com/blocks/880000)**
