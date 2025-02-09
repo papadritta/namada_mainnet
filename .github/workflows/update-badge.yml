@@ -1,0 +1,31 @@
+name: Update Expected Block Countdown Badge
+on:
+  schedule:
+    - cron: "0 * * * *" # Runs every hour
+  workflow_dispatch: # Allows manual execution
+
+jobs:
+  update-badge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Fetch Remaining Blocks
+        run: |
+          REMAINING_BLOCKS=$(curl -s https://namada.valopers.com/api/block-countdown/880000 | jq -r '.remaining')
+          echo "Remaining blocks: $REMAINING_BLOCKS"
+          echo "::set-output name=blocks::$REMAINING_BLOCKS"
+
+      - name: Update README Badge
+        run: |
+          sed -i "s|https://img.shields.io/badge/Expected_Update-[0-9]*-blue|https://img.shields.io/badge/Expected_Update-${{ steps.fetch-blocks.outputs.blocks }}-blue|g" README.md
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "actions@github.com"
+          git add README.md
+          git commit -m "Updated expected update countdown badge" || echo "No changes to commit"
+          git push
+
