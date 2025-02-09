@@ -2,6 +2,7 @@
 
 ## Description
 🔗 [Namada v1.1.1 Release](https://github.com/anoma/namada/releases/tag/v1.1.1)
+![Expected Update Countdown](https://badgen.net/https/namada.valopers.com/api/block-countdown/880000)
 **Expected update block height: [880000](https://namada.valopers.com/blocks/880000)**
 This Bash script automates the update of Namada from **v1.0.0 to v1.1.1**. It checks all dependencies are installed, verifies the correct **Chain ID**, checks and updates **CometBFT** to **v0.37.15**, builds the latest **Namada binaries**, and restarts the node and syncs it properly.
 
@@ -18,7 +19,6 @@ Run the following command to download and execute the script:
 ```bash
 curl -s https://github.com/papadritta/namada_mainnet/namada-update.sh | bash
 ```
-
 ## Troubleshooting
 ### If the script exits or fails:
 1. **Check the error message** displayed in the terminal.
