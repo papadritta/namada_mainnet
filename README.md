@@ -16,7 +16,7 @@ This Bash script automates the update of Namada from **v1.0.0 to v1.1.1**. It ch
 ## Usage
 Run the following command to download and execute the script:
 ```bash
-curl -s https://github.com/papadritta/namada_mainnet/namada-update.sh | bash
+curl -s https://raw.githubusercontent.com/papadritta/namada_mainnet/main/namada-update.sh | bash
 ```
 ## Troubleshooting
 ### If the script exits or fails:
