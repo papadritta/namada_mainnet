@@ -2,6 +2,7 @@
 from [v1.0.0]() to [v1.1.1]()
 
 ## Description
+**Expected update block height: [880000](https://namada.valopers.com/blocks/880000)**
 This Bash script automates the update of Namada from **v1.0.0 to v1.1.1**. It checks all dependencies are installed, verifies the correct **Chain ID**, checks and updates **CometBFT** to **v0.37.15**, builds the latest **Namada binaries**, and restarts the node and syncs it properly.
 
 ## Features
