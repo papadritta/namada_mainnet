@@ -6,12 +6,13 @@
 This Bash script automates the update of Namada from **v1.0.0 to v1.1.1**. It checks all dependencies are installed, verifies the correct **Chain ID**, checks and updates **CometBFT** to **v0.37.15**, builds the latest **Namada binaries**, and restarts the node and syncs it properly.
 
 ## Features
-✅ Checks if the script is run as root  
-✅ Installs & updates required dependencies
-✅ Detects and updates **CometBFT** only if necessary
-✅ Clones and builds the latest **Namada v1.1.1** from source
-✅ Automatically restarts the node and verifies block synchronization
-✅ Provides clear status messages for troubleshooting
+- ✅ Checks if the script is run as root
+- ✅ Installs & updates required dependencies
+- ✅ Detects and updates **CometBFT** only if necessary
+- ✅ Clones and builds the latest **Namada v1.1.1** from source
+- ✅ Automatically restarts the node and verifies block synchronization
+- ✅ Provides clear status messages for troubleshooting
+
 
 ## Usage
 Run the following command to download and execute the script:
