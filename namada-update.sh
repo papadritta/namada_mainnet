@@ -30,12 +30,14 @@ if [[ "$NAMADA_VERSION" != "v1.0.0" ]]; then
 fi
 
 echo -e "${YELLOW}Identifying Namada node port...${NC}"
-NAMADA_PORT=$(sudo lsof -i -P -n | grep namada | grep LISTEN | awk '{print $9}' | cut -d':' -f2 | head -n 1)
-if [[ -z "$NAMADA_PORT" ]]; then
-    echo -e "${RED}Unable to detect the Namada node port. The node is running.${NC}"
-    exit 1
+CONFIG_PATH="$HOME/.namada/config/config.toml"
+if [[ -f "$CONFIG_PATH" ]]; then
+    NAMADA_PORT=$(grep -Po '(?<=laddr = "tcp://0.0.0.0:)[0-9]+' "$CONFIG_PATH")
+else
+    NAMADA_PORT=26657
 fi
-echo -e "${GREEN}Detected Namada node port: $NAMADA_PORT${NC}"
+
+echo -e "${GREEN}Detected Namada RPC port: $NAMADA_PORT${NC}"
 
 echo -e "${YELLOW}Checking Namada version...${NC}"
 NAMADA_VERSION=$(namada -V | awk '{print $2}')
