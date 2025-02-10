@@ -37,3 +37,4 @@ jobs:
           git add README.md
           git commit -m "Updated expected update countdown badge" || echo "No changes to commit"
           git push
+
