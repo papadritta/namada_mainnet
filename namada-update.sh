@@ -95,9 +95,9 @@ cargo --version
 
 echo -e "${YELLOW}Updating Namada to v1.1.1...${NC}"
 cd $HOME
-rm -rf namada
-git clone https://github.com/anoma/namada.git
-cd namada
+rm -rf ./namada_src
+git clone https://github.com/anoma/namada.git namada_src
+cd namada_src
 git fetch --all
 git checkout tags/v1.1.1
 
@@ -143,6 +143,10 @@ else
     echo -e "${RED}Node is not syncing blocks properly. Please check your setup.${NC}"
     exit 1
 fi
+
+echo -e "${YELLOW}Cleaning up...${NC}"
+rm -rf $HOME/cometbft_bin
+rm -rf $HOME/namada_src
 
 echo -e "${YELLOW}========================================================="
 echo -e " 🔍 Checking node status..."
