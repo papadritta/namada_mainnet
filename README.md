@@ -1,5 +1,4 @@
 # Namada Mainnet Update Script from v1.0.0 to v1.1.1
-![OG_github](https://github.com/user-attachments/assets/76d5953c-6fdd-44f6-ae2e-8d14e5770eef)
 ![Expected Update Countdown](https://img.shields.io/badge/Expected_Update-Pending-blue)
 ## Description
 🔗 [Namada v1.1.1 Release](https://github.com/anoma/namada/releases/tag/v1.1.1)
