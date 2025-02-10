@@ -127,7 +127,7 @@ BLOCK_HEIGHT_START=$(curl -s http://localhost:26657/status | jq -r '.result.sync
 BLOCK_INCREASING=false
 
 for i in {1..3}; do
-    sleep 5
+    sleep 10
     BLOCK_HEIGHT_CURRENT=$(curl -s http://localhost:26657/status | jq -r '.result.sync_info.latest_block_height')
     if [[ "$BLOCK_HEIGHT_CURRENT" -gt "$BLOCK_HEIGHT_START" ]]; then
         BLOCK_INCREASING=true
