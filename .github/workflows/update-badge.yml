@@ -37,7 +37,7 @@ jobs:
       - name: Update README Badge
         run: |
           # Update the badge in README.md
-          sed -i "s|https://img.shields.io/badge/Expected_Update-[0-9]*-blue|https://img.shields.io/badge/Expected_Update-${{ steps.fetch-blocks.outputs.blocks }}-blue|g" README.md
+          sed -i "s|https://img.shields.io/badge/Expected_Update-[a-zA-Z]*-blue|https://img.shields.io/badge/Expected_Update-${{ steps.fetch-blocks.outputs.blocks }}-blue|g" README.md
 
       - name: Commit and Push Changes
         run: |
