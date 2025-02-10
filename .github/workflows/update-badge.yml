@@ -15,15 +15,14 @@ jobs:
       - name: Fetch Remaining Blocks
         id: fetch-blocks
         run: |
-          RESPONSE=$(curl -s https://namada.valopers.com/api/block-countdown/880000)
-          REMAINING_BLOCKS=$(echo "$RESPONSE" | jq -r '.remaining')
-        
-          if ! [[ "$REMAINING_BLOCKS" =~ ^[0-9]+$ ]]; then
-            echo "Error: Invalid response from API. Response: $RESPONSE"
-            exit 1
-          fi
-        
+          RESPONSE=$(curl -s https://namada.valopers.com/blocks/)
+
+          CURRENT_BLOCK=$(echo "$RESPONSE" | grep -oP '(?<=Target Block : #)\d+')
+
+          REMAINING_BLOCKS=$((894000 - CURRENT_BLOCK))
+
           echo "Remaining blocks: $REMAINING_BLOCKS"
+
           echo "blocks=$REMAINING_BLOCKS" >> $GITHUB_OUTPUT
 
       - name: Update README Badge
@@ -34,6 +33,7 @@ jobs:
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "actions@github.com"
+
           git add README.md
           git commit -m "Updated expected update countdown badge" || echo "No changes to commit"
           git push
