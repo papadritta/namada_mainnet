@@ -1,5 +1,8 @@
 # Namada Mainnet Update Script from v1.0.0 to v1.1.1
-![Expected Update Countdown](https://img.shields.io/badge/Expected_Update-Pending-blue)
+![Current Block](https://img.shields.io/badge/Current_Block-0-blue)
+![Blocks Left](https://img.shields.io/badge/Blocks_Left-0-blue)
+![Target Block](https://img.shields.io/badge/Target_Block-894000-blue)
+
 ## Description
 🔗 [Namada v1.1.1 Release](https://github.com/anoma/namada/releases/tag/v1.1.1)
 **Expected update block height: [894000](https://namada.valopers.com/blocks/894000)**
