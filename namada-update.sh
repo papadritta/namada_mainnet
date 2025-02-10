@@ -20,7 +20,7 @@ if ! command -v curl &> /dev/null; then
 fi
 
 echo -e "${YELLOW}Updating all packages and dependencies...${NC}"
-sudo apt update && sudo apt install make unzip clang pkg-config git-core libudev-dev libssl-dev build-essential libclang-18-dev git jq ncdu bsdmainutils htop lsof net-tools -y
+sudo apt update && sudo apt install make unzip clang pkg-config git-core libudev-dev libssl-dev build-essential libclang-12-dev protobuf-compiler git jq ncdu bsdmainutils htop lsof net-tools -y
 
 echo -e "${YELLOW}Checking Namada version...${NC}"
 NAMADA_VERSION=$(namada -V | awk '{print $2}')
