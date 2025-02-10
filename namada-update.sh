@@ -84,7 +84,9 @@ else
     echo -e "${GREEN}CometBFT is already up-to-date. Skipping update.${NC}"
 fi
 
-echo -e "${YELLOW}Updating Rust...${NC}"
+echo -e "${YELLOW}Installing Rust...${NC}"
+curl https://sh.rustup.rs -sSf | sh -s -- -y
+source "$HOME/.cargo/env"
 rustup update
 rustc --version
 cargo --version
