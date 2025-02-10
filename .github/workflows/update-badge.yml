@@ -2,7 +2,7 @@ name: Update Expected Block Countdown Badge
 
 on:
   schedule:
-    - cron: "0 * * * *" # Run every hour
+    - cron: "0 * * * *"
   workflow_dispatch:
 
 jobs:
@@ -15,17 +15,20 @@ jobs:
       - name: Fetch Remaining Blocks
         id: fetch-blocks
         run: |
-          RESPONSE=$(curl -s -H "Content-Type: application/json" https://api.namada.info/block/last)
 
-          CURRENT_BLOCK=$(echo "$RESPONSE" | jq '.height')
+          RPC_URL="https://rpc.papadritta.com"
+
+          RESPONSE=$(curl -s "$RPC_URL/status")
+
+          CURRENT_BLOCK=$(echo "$RESPONSE" | jq -r '.result.sync_info.latest_block_height')
 
           if [[ -z "$CURRENT_BLOCK" ]]; then
-            echo "Error: Unable to fetch the current block height."
+            echo "Error: Unable to fetch the current block height from RPC."
             exit 1
           fi
 
-          REMAINING_BLOCKS=$((894000 - CURRENT_BLOCK))
-
+          TARGET_BLOCK=894000
+          REMAINING_BLOCKS=$((TARGET_BLOCK - CURRENT_BLOCK))
           echo "Current Block Height: $CURRENT_BLOCK"
           echo "Remaining Blocks: $REMAINING_BLOCKS"
 
@@ -38,11 +41,11 @@ jobs:
 
       - name: Commit and Push Changes
         run: |
-          # Configure Git user
+          # Configure Git
           git config --global user.name "github-actions"
           git config --global user.email "actions@github.com"
 
+          # Commit and push the updated badge
           git add README.md
           git commit -m "Updated expected update countdown badge" || echo "No changes to commit"
           git push
-
