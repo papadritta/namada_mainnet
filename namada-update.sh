@@ -94,6 +94,11 @@ rustup update
 rustc --version
 cargo --version
 
+# Set ledger to run until block height 894000 then halt
+echo -e "${YELLOW}Setting ledger to stop at block height $TARGET_BLOCK_HEIGHT...${NC}"
+export BLOCK_HEIGHT=894000
+namadan ledger run-until --block-height $BLOCK_HEIGHT --halt
+
 # Wait until block height 894000 before proceeding
 TARGET_BLOCK_HEIGHT=894000
 while true; do
