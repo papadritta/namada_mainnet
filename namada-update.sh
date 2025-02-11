@@ -13,6 +13,7 @@ if [[ "$EUID" -ne 0 ]]; then
     echo -e "${RED}This script must be run as root. Please use sudo or log in as root.${NC}"
     exit 1
 fi
+
 echo -e "${YELLOW}Checking if curl is installed...${NC}"
 if ! command -v curl &> /dev/null; then
     echo -e "${RED}curl is not installed. Installing...${NC}"
@@ -93,6 +94,28 @@ rustup update
 rustc --version
 cargo --version
 
+# Wait until block height 894000 before proceeding
+TARGET_BLOCK_HEIGHT=894000
+while true; do
+    CURRENT_HEIGHT=$(curl -s http://localhost:$NAMADA_PORT/status | jq -r '.result.sync_info.latest_block_height')
+    echo -e "${YELLOW}Current block height: $CURRENT_HEIGHT${NC}"
+    
+    if [[ "$CURRENT_HEIGHT" -ge "$TARGET_BLOCK_HEIGHT" ]]; then
+        echo -e "${GREEN}Target block height reached: $CURRENT_HEIGHT. Proceeding with update.${NC}"
+        break
+    fi
+    
+    if [[ "$((TARGET_BLOCK_HEIGHT - CURRENT_HEIGHT))" -le 100 ]]; then
+        sleep 10  # Check more frequently as we get closer
+    else
+        sleep 60  # Check less frequently if we're far from the target
+    fi
+done
+
+# Stop the node before upgrade
+echo -e "${YELLOW}Stopping Namada node for upgrade...${NC}"
+sudo systemctl stop namadad
+
 echo -e "${YELLOW}Updating Namada to v1.1.1...${NC}"
 cd $HOME
 rm -rf ./namada_src
@@ -117,6 +140,11 @@ else
     echo -e "${RED}Namada update failed. Restarting from the beginning.${NC}"
     exit 1
 fi
+
+# Modify systemd service to prevent auto-restart before update
+echo -e "${YELLOW}Updating systemd service settings...${NC}"
+sed -i 's/^Restart=.*/Restart=no/' /etc/systemd/system/namadad.service
+systemctl daemon-reload
 
 echo -e "${YELLOW}Restarting Namada node...${NC}"
 sudo systemctl stop namadad
@@ -157,4 +185,3 @@ if [[ "$NODE_STATUS" == "false" ]]; then
     echo -e "${GREEN}✅ CometBFT is at v0.37.15 ✅${NC}"
 else
     echo -e "${RED}Node is still catching up. Allow more time to sync.${NC}"
-fi
