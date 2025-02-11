@@ -22,8 +22,8 @@ Run the following command to download and execute the script:
 ```bash
 curl -s https://raw.githubusercontent.com/papadritta/namada_mainnet/main/namada-update.sh | bash
 ```
->#### What Next After Update? > Restore systemd service to allow automatic restarts
-## !!! WARNING: CHANGE IT ONLY AFTER THE HALT IS OVER AND CHAIN IS RUNNING
+## What Next After Update? > Restore systemd service to allow automatic restarts
+>#### !!! WARNING: CHANGE IT ONLY AFTER THE HALT IS OVER AND CHAIN IS RUNNING
 ```bash
 echo -e "${YELLOW}Restoring systemd service auto-restart setting...${NC}"
 sed -i 's/^Restart=no/Restart=always/' /etc/systemd/system/namadad.service
