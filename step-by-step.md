@@ -46,16 +46,20 @@ git fetch --all
 git checkout tags/v1.1.1
 make build
 ```
-#### Set the ledger to run until block height 894000 then halt
+#### Check binaries on the place
 ```bash
-namadan -V # Must be v1.0.0 before block 894000
-export BLOCK_HEIGHT=894000
-namadan ledger run-until --block-height $BLOCK_HEIGHT --halt
+[[ -f /root/namada_src/namada/target/release/namada ]] && /root/namada_src/namada/target/release/namada -V
 ```
 #### Modify systemd service to prevent auto-restart before update
 ```bash
 sed -i 's/^Restart=.*/Restart=no/' /etc/systemd/system/namadad.service
 systemctl daemon-reload
+```
+#### Set the ledger to run until block height 894000 then halt
+```bash
+namadan -V # Must be v1.0.0 before block 894000
+export BLOCK_HEIGHT=894000
+namadan ledger run-until --block-height $BLOCK_HEIGHT --halt
 ```
 
 #### You can Monitor the Current block
@@ -78,7 +82,7 @@ cd $HOME
 cd $HOME/namada_src/namada
 sudo mv target/release/namada* /usr/local/bin/
 ```
-#### Check the node version
+#### Check the version again
 ```bash
 namada -V #should be v1.1.1
 ```
