@@ -75,7 +75,7 @@ sudo systemctl stop namadad
 #### Move binaries
 ```bash
 cd $HOME
-cd $HOME/namada_src
+cd $HOME/namada_src/namada
 sudo mv target/release/namada* /usr/local/bin/
 ```
 #### Check the node version
