@@ -37,12 +37,14 @@ cd $HOME
 mkdir -p $HOME/namada_src
 cd $HOME/namada_src
 git clone https://github.com/anoma/namada.git
+cd namada
 git fetch --all
 git checkout tags/v1.1.1
 make build
 ```
 #### Set the ledger to run until block height 894000 then halt
 ```bash
+namadan -V # Must be v1.0.0 before block 894000
 export BLOCK_HEIGHT=894000
 namadan ledger run-until --block-height $BLOCK_HEIGHT --halt
 ```
@@ -51,15 +53,12 @@ namadan ledger run-until --block-height $BLOCK_HEIGHT --halt
 sed -i 's/^Restart=.*/Restart=no/' /etc/systemd/system/namadad.service
 systemctl daemon-reload
 ```
-#### Check the node version
-```bash
-namadan -V # Must be v1.0.0 before block 894000
-```
+
 #### You can Monitor the Current block
 ```bash
 curl -s http://localhost:26657/status | jq -r '.result.sync_info.latest_block_height'
 ```
-!!! WARNING !!! Wait & monitor until the block height 894000 before proceed.
+!!! WARNING !!! Your node will halt after committing block 893999, not 894000.
 
 ###############################################################################
 ## 2. Steps After the Block reached 894000 - 1:
@@ -73,13 +72,13 @@ sudo systemctl stop namadad
 ```bash
 cd $HOME
 cd $HOME/namada_src
-sudo cp target/release/namada* /usr/local/bin/
+sudo mv target/release/namada* /usr/local/bin/
 ```
 #### Check the node version
 ```bash
 namada -V #should be v1.1.1
 ```
-#### Run ledger to check if node cathing up
+#### #### Run ledger to check if node is catching up
 ```bash
 namadan ledger run
 ```
@@ -109,6 +108,8 @@ sudo journalctl -u namadad -f -o cat
 #### In case of fail
 ```bash
 sudo systemctl stop namadad
+sudo systemctl disable namadad
+sudo systemctl enable namadad
 sudo systemctl restart namadad
 sudo journalctl -u namadad -f -o cat
 ```
