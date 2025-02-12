@@ -50,7 +50,11 @@ curl -s http://localhost:26657/status | jq -r '.result.sync_info.latest_block_he
 ```bash
 sudo systemctl restart namadad
 ```
-- If the issue persists, check network connectivity add peers & seeds and re-run the update script.
+- If the node is stuck or failing block validation, perform a ledger rollback to revert to the last valid state:
+```bash
+sudo systemctl stop namadad && namadan node ledger rollback && sudo systemctl start namadad
+```
+- If the issue persists, check network connectivity add peers & seeds and re-run the script.
 
 ## Support
 For any issues, open an issue on the repository or check the [Namada documentation.](https://docs.namada.net)
