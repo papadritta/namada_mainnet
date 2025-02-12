@@ -25,7 +25,6 @@ curl -s https://raw.githubusercontent.com/papadritta/namada_mainnet/main/namada-
 ## What Next After Update? > Restore systemd service to allow automatic restarts
 >#### !!! WARNING: CHANGE IT ONLY AFTER THE HALT IS OVER AND CHAIN IS RUNNING
 ```bash
-echo -e "${YELLOW}Restoring systemd service auto-restart setting...${NC}"
 sed -i 's/^Restart=no/Restart=always/' /etc/systemd/system/namadad.service
 systemctl daemon-reload
 systemctl restart namadad
