@@ -16,13 +16,13 @@ This Bash script automates the update of Namada from **v1.0.0 to v1.1.1**. It ch
 - ✅ Automatically restarts the node and verifies block synchronization
 - ✅ Provides clear status messages for troubleshooting
 
-## AUTO Update :point_down: 
+## AUTO Update Script :point_down: 
 Run the following command to download and execute the script:
 ```bash
 curl -s https://raw.githubusercontent.com/papadritta/namada_mainnet/main/namada-update.sh | sudo bash -e
 ```
-## MANUAL Update :point_down: 
-Detailed [Step-by-step](/step-by-step.md) Instruction
+## MANUAL Update Step-by-step :point_down: 
+Detailed Step-by-step [Instruction Here](/step-by-step.md)
 
 ## Troubleshooting
 ### If the script exits or fails:
