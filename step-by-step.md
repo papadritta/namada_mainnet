@@ -30,6 +30,10 @@ rustup update
 rustc --version
 cargo --version
 ```
+#### Check the version
+```bash
+namadan -V # Must be v1.0.0 before block 894000
+```
 #### Make a backup
 ```bash
 cp $(which namadan) $HOME/namadan_v1.0.0_backup
@@ -45,8 +49,9 @@ git fetch --all
 git checkout tags/v1.1.1
 make build
 ```
-#### Check binaries on the place
+#### Check binaries on the place & node version
 ```bash
+[[ -f /root/namada_src/namada/target/release/namada ]] && ls -lah $HOME/namada_src/namada/target/release/
 [[ -f /root/namada_src/namada/target/release/namada ]] && /root/namada_src/namada/target/release/namada -V
 ```
 #### Check the Current block & you can monitor it later
@@ -64,6 +69,7 @@ sudo systemctl daemon-reload && sudo systemctl restart namadad
 sudo journalctl -u namadad -f -o cat
 ```
 !!! WARNING !!! Your node will halt after committing block 893999, not 894000.
+DO NOT restart it until you've completed the upgrade!
 
 ###############################################################################
 ## 2. Steps After the Block reached 894000 - 1:
@@ -83,7 +89,7 @@ sudo mv target/release/namada* /usr/local/bin/
 ```bash
 namada -V #should be v1.1.1
 ```
-#### #### Run ledger to check if node is catching up
+#### After Upgrade, Check Node is Running Before Restarting Systemd
 ```bash
 namadan ledger run
 ```
