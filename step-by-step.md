@@ -1,5 +1,4 @@
 # Namada Step-By-step Update  v1.0.0 > v1.1.1
-
 ###############################################################################
 ## 1. Steps before the Block reached `894000`:
 ###############################################################################
@@ -50,21 +49,19 @@ make build
 ```bash
 [[ -f /root/namada_src/namada/target/release/namada ]] && /root/namada_src/namada/target/release/namada -V
 ```
-#### Modify systemd service to prevent auto-restart before update
-```bash
-sed -i 's/^Restart=.*/Restart=on-failure/' /etc/systemd/system/namadad.service
-systemctl daemon-reload
-```
-#### Set the ledger to run until block height 894000 then halt
-```bash
-namadan -V # Must be v1.0.0 before block 894000
-export BLOCK_HEIGHT=894000
-namadan ledger run-until --block-height $BLOCK_HEIGHT --halt
-```
-
-#### You can Monitor the Current block
+#### Check the Current block & you can monitor it later
 ```bash
 curl -s http://localhost:26657/status | jq -r '.result.sync_info.latest_block_height'
+```
+#### Setup the systemd service and wait the halt
+```bash
+sudo sed -i 's|^ExecStart=.*|ExecStart=/usr/local/bin/namadan ledger run-until --block-height 894000 --halt|' /etc/systemd/system/namadad.service && \
+sudo sed -i 's|^Restart=.*|Restart=on-failure|' /etc/systemd/system/namadad.service && \
+sudo systemctl daemon-reload && sudo systemctl restart namadad
+```
+#### Monitor logs
+```bash
+sudo journalctl -u namadad -f -o cat
 ```
 !!! WARNING !!! Your node will halt after committing block 893999, not 894000.
 
@@ -90,16 +87,18 @@ namada -V #should be v1.1.1
 ```bash
 namadan ledger run
 ```
-!!! WARNING!!! Your node may not start producing blocks immediately. 
+!!! WARNING!!! Wait! Your node may not start producing blocks immediately. 
 Block production resumes only after 2/3 of the network completes the upgrade.
 
 ###############################################################################
 ## 3. Steps After the Node start producing the blocks:
 ###############################################################################
+
 #### Revert systemd service
 ```bash
-sed -i 's/^Restart=no/Restart=always/' /etc/systemd/system/namadad.service
-systemctl daemon-reload
+sudo sed -i 's|^ExecStart=.*|ExecStart=/usr/local/bin/namadan ledger run|' /etc/systemd/system/namadad.service && \
+sudo sed -i 's|^Restart=.*|Restart=always|' /etc/systemd/system/namadad.service && \
+sudo systemctl daemon-reload && sudo systemctl restart namadad
 ```
 #### Start Service
 ```bash
