@@ -6,7 +6,7 @@
 
 #### Updating all packages and dependencies
 ```bash
-sudo apt update && sudo apt install make unzip clang pkg-config git-core libudev-dev libssl-dev build-essential libclang-12-dev protobuf-compiler git jq ncdu bsdmainutils htop lsof net-tools -y
+sudo apt update && sudo apt install make unzip clang pkg-config git-core libudev-dev libssl-dev build-essential libclang-18-dev protobuf-compiler git jq ncdu bsdmainutils htop lsof net-tools -y
 ```
 #### Check CometBFT 
 ```bash 
