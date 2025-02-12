@@ -148,7 +148,7 @@ fi
 
 # Modify systemd service to prevent auto-restart before update
 echo -e "${YELLOW}Updating systemd service settings...${NC}"
-sed -i 's/^Restart=.*/Restart=no/' /etc/systemd/system/namadad.service
+sed -i 's/^Restart=.*/Restart=on-failure/' /etc/systemd/system/namadad.service
 systemctl daemon-reload
 
 echo -e "${YELLOW}Restarting Namada node...${NC}"

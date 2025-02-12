@@ -52,7 +52,7 @@ make build
 ```
 #### Modify systemd service to prevent auto-restart before update
 ```bash
-sed -i 's/^Restart=.*/Restart=no/' /etc/systemd/system/namadad.service
+sed -i 's/^Restart=.*/Restart=on-failure/' /etc/systemd/system/namadad.service
 systemctl daemon-reload
 ```
 #### Set the ledger to run until block height 894000 then halt
