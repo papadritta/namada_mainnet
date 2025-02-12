@@ -41,7 +41,7 @@ git fetch --all
 git checkout tags/v1.1.1
 make build
 ```
-#### Set tehe ledger to run until block height 894000 then halt
+#### Set the ledger to run until block height 894000 then halt
 ```bash
 export BLOCK_HEIGHT=894000
 namadan ledger run-until --block-height $BLOCK_HEIGHT --halt
