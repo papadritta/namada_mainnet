@@ -31,6 +31,10 @@ rustup update
 rustc --version
 cargo --version
 ```
+#### Make a backup
+```bash
+cp $(which namadan) $HOME/namadan_v1.0.0_backup
+```
 #### Build namada from source
 ```bash
 cd $HOME
