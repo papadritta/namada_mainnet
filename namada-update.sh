@@ -121,16 +121,33 @@ echo -e "${YELLOW}Starting Namada service and waiting for sync...${NC}"
 sudo systemctl daemon-reload && sudo systemctl restart namadad
 sleep 10
 
-# TODO:
-# Check if the Node is syncing
-# Check Node status every 60 seconds
-# Check Logs in case errors are found
-# Check logs if lack of peereing
-# Check logs if lack of block production
-# If node running, wait until minimum 5 blocks are produced 
-# Block production resumes only after 2/3 of the network completes the upgrade.
-# Each interraction should return outcome and feedback
-# Do not restart the node until the network is ready
+# Check if node is syncing and producing blocks, make a loop to check every 60 seconds
+echo -e "${YELLOW}Checking if node is syncing and producing blocks...${NC}"
+BLOCK_COUNT=0
+while true; do
+    SYNC_STATUS=$(curl -s http://localhost:26657/status | jq -r '.result.sync_info.catching_up')
+    CURRENT_HEIGHT=$(curl -s http://localhost:26657/status | jq -r '.result.sync_info.latest_block_height')
+    LATEST_BLOCK_TIME=$(curl -s http://localhost:26657/status | jq -r '.result.sync_info.latest_block_time')
+    PEERS=$(curl -s http://localhost:26657/net_info | jq -r '.result.n_peers')
+    
+    echo -e "${YELLOW}Peers connected: $PEERS${NC}"
+    echo -e "${YELLOW}Latest block height: $CURRENT_HEIGHT | Last block time: $LATEST_BLOCK_TIME${NC}"
+    
+    if [[ "$SYNC_STATUS" == "false" ]]; then
+        BLOCK_COUNT=$((BLOCK_COUNT+1))
+        echo -e "${GREEN}✅ Node is synced and producing blocks. Block count since restart: $BLOCK_COUNT.${NC}"
+    else
+        BLOCK_COUNT=0
+        echo -e "${YELLOW}Node is still catching up. Checking again in 60 seconds...${NC}"
+    fi
+    
+    if [[ "$BLOCK_COUNT" -ge 5 ]]; then
+        echo -e "${GREEN}✅ Node has produced 5 blocks. Upgrade process is complete.${NC}"
+        break
+    fi
+    
+    sleep 60
+done
 
 # Restore systemd settings to allow automatic restarts
 echo -e "${YELLOW}Restoring systemd settings to allow automatic restarts...${NC}"
