@@ -125,7 +125,7 @@ echo -e "${YELLOW}Updating Namada to v1.1.1...${NC}"
 cd $HOME
 rm -rf ./namada_src
 git clone https://github.com/anoma/namada.git namada_src
-cd namada_src
+cd namada_src/namada
 git fetch --all
 git checkout tags/v1.1.1
 
