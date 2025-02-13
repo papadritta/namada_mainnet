@@ -93,12 +93,19 @@ namada -V #should be v1.1.1
 ```bash
 namadan ledger run
 ```
+
 !!! WARNING!!! Wait! Your node may not start producing blocks immediately. 
 Block production resumes only after 2/3 of the network completes the upgrade.
 
 ###############################################################################
 ## 3. Steps After the Node start producing the blocks:
 ###############################################################################
+
+#### Verify that nothing running on background to avoid multiple conflicts
+```bash
+ps aux | grep namada
+```
+> if **YES** kill the process
 
 #### Revert systemd service
 ```bash
