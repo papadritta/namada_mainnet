@@ -94,9 +94,11 @@ sudo mv target/release/namada* /usr/local/bin/
 ```bash
 namada -V #should be v1.1.1
 ```
-#### After Upgrade, Check Node is Running Before Restarting Systemd
+#### Revert systemd service & restart
 ```bash
-namadan ledger run
+sudo sed -i 's|^ExecStart=.*|ExecStart=/usr/local/bin/namadan ledger run|' /etc/systemd/system/namadad.service && \
+sudo sed -i 's|^Restart=.*|Restart=always|' /etc/systemd/system/namadad.service && \
+sudo systemctl daemon-reload && sudo systemctl restart namadad
 ```
 
 !!! WARNING!!! Wait! Your node may not start producing blocks immediately. 
@@ -105,22 +107,6 @@ Block production resumes only after 2/3 of the network completes the upgrade.
 ###############################################################################
 ## 3. Steps After the Node start producing the blocks:
 ###############################################################################
-
-#### Verify that nothing is running on the background
-```bash
-ps aux | grep namada
-```
-> if **YES** kill the process
-```bash
-pkill -9 namada
-```
-
-#### Revert systemd service & restart
-```bash
-sudo sed -i 's|^ExecStart=.*|ExecStart=/usr/local/bin/namadan ledger run|' /etc/systemd/system/namadad.service && \
-sudo sed -i 's|^Restart=.*|Restart=always|' /etc/systemd/system/namadad.service && \
-sudo systemctl daemon-reload && sudo systemctl restart namadad
-```
 
 #### Check the node status
 ```bash
