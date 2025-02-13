@@ -56,9 +56,32 @@ if [[ "$EUID" -ne 0 ]]; then
     exit 1
 fi
 
-# Update system packages and install dependencies
-echo -e "${YELLOW}Updating system packages...${NC}"
-sudo apt update && sudo apt install make unzip clang pkg-config git-core libudev-dev libssl-dev build-essential libclang-18-dev protobuf-compiler git jq ncdu bsdmainutils htop lsof net-tools -y
+# Function to check and install missing dependencies
+install_if_missing() {
+    if ! command -v "$1" &> /dev/null; then
+        echo -e "${RED}$1 is not installed. Installing...${NC}"
+        sudo apt update && sudo apt install -y "$1"
+        if ! command -v "$1" &> /dev/null; then
+            echo -e "${RED}Failed to install $1. Exiting...${NC}"
+            exit 1
+        else
+            echo -e "${GREEN}✅ $1 installed successfully.${NC}"
+        fi
+    else
+        echo -e "${GREEN}✅ $1 is already installed.${NC}"
+    fi
+}
+
+# Update system packages and install required dependencies
+echo -e "${YELLOW}Checking and installing required dependencies...${NC}"
+
+DEPENDENCIES=("make" "unzip" "clang" "pkg-config" "git-core" "libudev-dev" "libssl-dev" \
+              "build-essential" "libclang-18-dev" "protobuf-compiler" "git" "jq" "ncdu" \
+              "bsdmainutils" "wget" "htop" "lsof" "net-tools")
+
+for package in "${DEPENDENCIES[@]}"; do
+    install_if_missing "$package"
+done
 
 # Check CometBFT version and update if necessary
 echo -e "${YELLOW}Checking CometBFT version...${NC}"
