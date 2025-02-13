@@ -1,5 +1,4 @@
 # Namada Step-By-step Update  v1.0.0 > v1.1.1
->✅ **Tested on**: Ubuntu 24.04.1 LTS (GNU/Linux 6.8.0-41-generic x86_64)
 ![Current Block](https://img.shields.io/badge/Current_Block-861342-blue)
 ![Blocks Left](https://img.shields.io/badge/Blocks_Left-32658-blue)
 ![Target Block](https://img.shields.io/badge/Target_Block-894000-blue)
@@ -7,6 +6,7 @@
 ###############################################################################
 ## 1. Steps before the Block reached `894000`:
 ###############################################################################
+>**Tested on**: Ubuntu 24.04.1 LTS (GNU/Linux 6.8.0-41-generic x86_64)
 
 #### Updating all packages and dependencies
 ```bash
