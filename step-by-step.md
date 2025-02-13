@@ -101,11 +101,14 @@ Block production resumes only after 2/3 of the network completes the upgrade.
 ## 3. Steps After the Node start producing the blocks:
 ###############################################################################
 
-#### Verify that nothing running on background to avoid multiple conflicts
+#### Verify that nothing is running on the background
 ```bash
 ps aux | grep namada
 ```
 > if **YES** kill the process
+```bash
+pkill -9 namada
+```
 
 #### Revert systemd service
 ```bash
