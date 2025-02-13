@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# 🚧 **Testing Mode Active**: Installation is currently disabled for verification.
+# To proceed with testing, manually execute the script.
+
 # Namada Mainnet Update Script v1.0.0 > v1.1.1
 # Last Updated: Feb 12, 2025
 # This script is a safe update process to avoiding early restarts or slashing risks.
@@ -12,7 +15,24 @@ NC='\033[0m'
 
 echo -e "${YELLOW}===================================================="
 echo -e "         Namada Update Script v1.0.0 > v1.1.1     "
+echo -e " 🚧 **Testing Mode Active**: Installation is currently disabled for verification."
 echo -e "====================================================${NC}"
+
+# Function to ask user confirmation before proceeding
+confirm_proceed() {
+    while true; do
+        echo -e "${YELLOW}Do you want to start the update process? (y/n)${NC}"
+        read -r response
+        case "$response" in
+            [yY]) echo -e "${GREEN}Proceeding with the update...${NC}"; break ;;
+            [nN]) echo -e "${RED}Update process aborted.${NC}"; exit 0 ;;
+            *) echo -e "${RED}Invalid input. Please enter 'y' or 'n'.${NC}" ;;
+        esac
+    done
+}
+
+# Ask for confirmation before running the update
+confirm_proceed
 
 # Check the script runs as root to avoid permission issues
 echo -e "${YELLOW}Checking if script is run as root...${NC}"
