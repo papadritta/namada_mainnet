@@ -34,6 +34,21 @@ confirm_proceed() {
 # Ask for confirmation before running the update
 confirm_proceed
 
+# Check if curl is installed, if not, install it
+echo -e "${YELLOW}Checking if curl is installed...${NC}"
+if ! command -v curl &> /dev/null; then
+    echo -e "${RED}curl is not installed. Installing curl...${NC}"
+    sudo apt update && sudo apt install curl -y
+    if ! command -v curl &> /dev/null; then
+        echo -e "${RED}Failed to install curl. Exiting...${NC}"
+        exit 1
+    else
+        echo -e "${GREEN} curl installed successfully.${NC}"
+    fi
+else
+    echo -e "${GREEN} curl is already installed.${NC}"
+fi
+
 # Check the script runs as root to avoid permission issues
 echo -e "${YELLOW}Checking if script is run as root...${NC}"
 if [[ "$EUID" -ne 0 ]]; then
