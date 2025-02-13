@@ -129,12 +129,18 @@ curl -s http://localhost:26657/status | jq -r '.result.sync_info.catching_up'
 ```bash
 sudo journalctl -u namadad -f -o cat
 ```
+!!! WARNING!!! Wait! Your node may not start producing blocks immediately.
+
 #### In case of fail
+```bash
+sudo systemctl restart namadad
+```
+>or 
 ```bash
 sudo systemctl stop namadad
 sudo systemctl disable namadad
 sudo systemctl enable namadad
-sudo systemctl restart namadad
+sudo systemctl start namadad
 sudo journalctl -u namadad -f -o cat
 ```
 #### Clean up the leftovers
