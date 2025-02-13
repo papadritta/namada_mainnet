@@ -24,7 +24,7 @@ curl -s https://raw.githubusercontent.com/papadritta/namada_mainnet/main/namada-
 ```
 ## MANUAL Update Step-by-step :point_down: 
 Detailed Step-by-step [Instruction Here](/step-by-step.md)
-
+> ✅ **Tested on**: Ubuntu 24.04.1 LTS (GNU/Linux 6.8.0-41-generic x86_64)
 ## Troubleshooting
 ### If the script exits or fails:
 1. **Check the error message** displayed in the terminal.
