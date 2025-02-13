@@ -114,16 +114,13 @@ ps aux | grep namada
 pkill -9 namada
 ```
 
-#### Revert systemd service
+#### Revert systemd service & restart
 ```bash
 sudo sed -i 's|^ExecStart=.*|ExecStart=/usr/local/bin/namadan ledger run|' /etc/systemd/system/namadad.service && \
 sudo sed -i 's|^Restart=.*|Restart=always|' /etc/systemd/system/namadad.service && \
 sudo systemctl daemon-reload && sudo systemctl restart namadad
 ```
-#### Start Service
-```bash
-sudo systemctl start namadad
-```
+
 #### Check the node status
 ```bash
 curl -s http://localhost:26657/status | jq -r '.result.sync_info.catching_up'
