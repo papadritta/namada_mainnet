@@ -18,10 +18,10 @@ cometbft version #must be v0.37.15
 ```
 #### & If needed to Updating CometBFT to v0.37.15
 ```bash
-cd $HOME
+cd /root
 sudo rm -rf cometbft_bin
-mkdir -p $HOME/cometbft_bin
-cd $HOME/cometbft_bin
+mkdir -p /root/cometbft_bin
+cd /root/cometbft_bin
 wget -O cometbft.tar.gz https://github.com/cometbft/cometbft/releases/download/v0.37.15/cometbft_0.37.15_linux_amd64.tar.gz
 tar xvf cometbft.tar.gz
 sudo chmod +x cometbft
@@ -30,7 +30,7 @@ sudo mv ./cometbft /usr/local/bin/
 #### Update Rust
 ```bash
 curl https://sh.rustup.rs -sSf | sh -s -- -y
-source "$HOME/.cargo/env"
+source "/root/.cargo/env"
 rustup update
 rustc --version
 cargo --version
@@ -41,13 +41,13 @@ namadan -V # Must be v1.0.0 before block 894000
 ```
 #### Make a backup
 ```bash
-cp $(which namadan) $HOME/namadan_v1.0.0_backup
+cp $(which namadan) /root/namadan_v1.0.0_backup
 ```
 #### Build namada from source
 ```bash
-cd $HOME
-mkdir -p $HOME/namada_src
-cd $HOME/namada_src
+cd /root
+mkdir -p /root/namada_src
+cd /root/namada_src
 git clone https://github.com/anoma/namada.git
 cd namada
 git fetch --all
@@ -56,7 +56,7 @@ make build
 ```
 #### Check binaries on the place & node version
 ```bash
-[[ -f /root/namada_src/namada/target/release/namada ]] && ls -lah $HOME/namada_src/namada/target/release/
+[[ -f /root/namada_src/namada/target/release/namada ]] && ls -lah /root/namada_src/namada/target/release/
 [[ -f /root/namada_src/namada/target/release/namada ]] && /root/namada_src/namada/target/release/namada -V
 ```
 #### Check the Current block & you can monitor it later
@@ -86,8 +86,8 @@ sudo systemctl stop namadad
 ```
 #### Move binaries
 ```bash
-cd $HOME
-cd $HOME/namada_src/namada
+cd /root
+cd /root/namada_src/namada
 sudo mv target/release/namada* /usr/local/bin/
 ```
 #### Check the version again
@@ -146,6 +146,6 @@ sudo journalctl -u namadad -f -o cat
 ```
 #### Clean up the leftovers
 ```bash
-rm -rf $HOME/cometbft_bin
-rm -rf $HOME/namada_src
+rm -rf /root/cometbft_bin
+rm -rf /root/namada_src
 ```
