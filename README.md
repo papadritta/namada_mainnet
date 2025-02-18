@@ -1,5 +1,5 @@
 # Namada Mainnet Update Script from v1.0.0 to v1.1.1
-![Current Block](https://img.shields.io/badge/Current_Block-952841-blue)
+![Current Block](https://img.shields.io/badge/Current_Block-953361-blue)
 ![Blocks Left](https://img.shields.io/badge/Blocks_Left--284-blue)
 ![Target Block](https://img.shields.io/badge/Target_Block-894000-blue)
 
