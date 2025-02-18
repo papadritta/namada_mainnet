@@ -1,5 +1,5 @@
 # Namada Step-By-step Update  v1.0.0 > v1.1.1
-![Current Block](https://img.shields.io/badge/Current_Block-952345-blue)
+![Current Block](https://img.shields.io/badge/Current_Block-952841-blue)
 ![Blocks Left](https://img.shields.io/badge/Blocks_Left--284-blue)
 ![Target Block](https://img.shields.io/badge/Target_Block-894000-blue)
 
