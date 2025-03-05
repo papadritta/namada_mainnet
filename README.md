@@ -3,7 +3,7 @@
 
 ## Description
 🔗 [Namada v1.1.1 Release](https://github.com/anoma/namada/releases/tag/v1.1.2)
-
+![Current Block](https://img.shields.io/badge/Current_Block-861342-blue)
 This Bash script automates the update of Namada from **v1.1.1 to v1.1.2**. It checks all dependencies are installed, verifies the correct **Chain ID** `namada.5f5de2dd1b88cba30586420`, **Service Name** `namadad.service`,checks and updates **CometBFT** to **v0.37.15**, builds the latest **Namada binaries**, and restarts the node and syncs it properly.
 
 ## Features
