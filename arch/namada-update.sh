@@ -118,8 +118,9 @@ else
 fi
 
 # Backup Namada v1.0.0 in case of failure
-echo -e "${YELLOW}Backing up Namada v1.0.0 in case of failure...${NC}"
-cp $(which namadan) $HOME/namadan_v1.0.0_backup
+NAMADA_VERSION=$(namada -V | awk '{print $2}')
+echo -e "${YELLOW}Backing up Namada version $NAMADA_VERSION...${NC}"
+cp -f $(which namada) /root/namada_${NAMADA_VERSION}_backup
 
 # Build Namada v1.1.1 from source
 echo -e "${YELLOW}Building Namada v1.1.1 from source...${NC}"
